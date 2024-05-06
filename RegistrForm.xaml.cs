@@ -38,7 +38,7 @@ namespace AutoUp
             SqlDataAdapter adapter = new SqlDataAdapter();
             DataTable dt = new DataTable();
 
-            string query = $"use DiplomDatabase insert into registr(login_user,password_user) values('{login}','{pass}') ";
+            string query = $"use DiplomAutoUp insert into registr(login_user,password_user) values('{login}','{pass}') ";
 
             SqlCommand command = new SqlCommand(query,db.getConnection());
 
@@ -61,12 +61,12 @@ namespace AutoUp
         {
             var login = txtUser.Text;
             var pass = txtPass.Text;
-            var connString = "Data Source=meoowka\\sqlexpress;Initial Catalog=Diplom_db;Integrated Security=True";
+            var connString = "Data Source=meoowka\\sqlexpress;Initial Catalog=DiplomAutoUp;Integrated Security=True";
             SqlDataAdapter adapter = new SqlDataAdapter();
             DataTable dt = new DataTable();
             using (var conn = new SqlConnection(connString))
             {
-                string query = $"use Diplom_db ID_users,Login_user,Pass_user from users" +
+                string query = $"use DiplomAutoUp ID_users,Login_user,Pass_user from users" +
                 $" where Login_user = '{login}' and Pass_user = '{pass}'";
 
                 var result = new SqlCommand(query, conn);

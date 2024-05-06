@@ -26,21 +26,21 @@ namespace AutoUp
             {
                 modules.Add(item);
             }
-            List<ModulOldVerssion> result = new();
+            //List<ModulOldVerssion> result = new();
 
-            foreach (var module in modules)
-            {
-                ModulOldVerssion modulOldVerssion = new ModulOldVerssion
-                {
-                    Name_File = module.Name_File,
-                    Discription = module.Discription,
-                    Version = module.Version,
-                    Extension = module.Extension,
-                    OldVersion = string.Empty
-                };
-                result.Add(modulOldVerssion);
-            }
-            return result.ToArray();
+            //foreach (var module in modules)
+            //{
+            //    ModulOldVerssion modulOldVerssion = new ModulOldVerssion
+            //    {
+            //        Name_File = module.Name_File,
+            //        Discription = module.Discription,
+            //        Version = module.Version,
+            //        Extension = module.Extension,
+            //        OldVersion = string.Empty
+            //    };
+            //    result.Add(modulOldVerssion);
+            //}
+            return modules.ToArray();
           
           
         }

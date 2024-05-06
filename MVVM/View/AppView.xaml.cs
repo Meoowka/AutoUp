@@ -11,9 +11,8 @@ using System.Windows.Controls;
 using System.Windows;
 using FluentFTP;
 using Microsoft.Win32;
+
 using System.Data;
-using System.ComponentModel;
-using System.Windows.Data;
 
 namespace AutoUp.MVVM.View
 {
@@ -60,6 +59,7 @@ namespace AutoUp.MVVM.View
 
         private void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
+            List<Programm> prog = new();
             List<Module> Local = new();
 
             var files = DataGridApps.SelectedItem as Module;
@@ -69,6 +69,10 @@ namespace AutoUp.MVVM.View
                 var result = (FtpStatus)remoteProvider.Download(files_r);
                 if (result == FluentFTP.FtpStatus.Success)
                 {
+                  
+
+
+
                     if (MessageBox.Show("Приложение скачено", "хотите установить", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
                         Process.Start(FilePathLocalFolder + '\\' + files_r);
@@ -100,48 +104,42 @@ namespace AutoUp.MVVM.View
         }
         public void WriteYmlAdd(string filePathr, List<Module> ClientFiles)
         {
-            bool lineFound = false;
-            string tempFile = Path.GetTempFileName();
 
-            using (StreamReader reader = new StreamReader(filePathr))
-            using (StreamWriter writer = new StreamWriter(tempFile))
-            {
-                string line;
-                foreach (var item in ClientFiles) {
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        if (line == item.Name_File)
-                        {
-                            writer.WriteLine(item);
-                            lineFound = true;
-                        }
-                        else
-                        {
-                            writer.WriteLine(line);
-                        }
-                    }
-                }
-            }
+            //foreach (var item in ClientFiles)
+            //{
 
-            if (!lineFound)
+            //    if (File.ReadLines(filePathr).Any(line => line.Contains(item.ToString())))
+            //    {
+            //        // If the line already exists, overwrite it
+            //        string[] lines = File.ReadAllLines(filePathr);
+            //        for (int i = 0; i < lines.Length; i++)
+            //        {
+            //            if (lines[i].Contains(item.ToString()))
+            //            {
+            //                lines[i] = item.ToString();
+            //                break;
+            //            }
+            //        }
+            //        File.WriteAllLines(filePathr, lines);
+            //    }
+            //    else
+            //    {
+            //        // If the line does not exist, add it to the file
+            //        using (StreamWriter writer = File.AppendText(filePathr))
+            //        {
+            //            writer.WriteLine(item);
+            //        }
+            //    }
+            //}
+            using (FileStream fs = new FileStream(filePathr, FileMode.Append, FileAccess.Write))
+            using (StreamWriter sw = new StreamWriter(fs))
             {
                 foreach (var item in ClientFiles)
                 {
-                    using (StreamWriter writer = new StreamWriter(filePathr, append: true))
-                    {
-                        writer.WriteLine(item);
-                    }
+
+                    sw.WriteLine(item);
                 }
             }
-          
-            //using (FileStream fs = new FileStream(filePathr, FileMode.Create, FileAccess.Write))
-            //using (StreamWriter sw = new StreamWriter(fs))
-            //{
-            //    foreach (var item in ClientFiles)
-            //    {
-            //        sw.WriteLine(item);
-            //    }
-            //}
         }
         public void ShowUpdate()
         {

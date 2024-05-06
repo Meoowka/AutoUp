@@ -9,7 +9,7 @@ namespace AutoUp.Entities
 {
     class DataBase
     {
-        SqlConnection sqlConnection = new SqlConnection("Data Source=meoowka\\sqlexpress;Initial Catalog=DiplomDatabase;Integrated Security=True;");
+        SqlConnection sqlConnection = new SqlConnection("Data Source=meoowka\\sqlexpress;Initial Catalog=DiplomAutoUp;Integrated Security=True;");
 
         public void OpenConnection()
         {

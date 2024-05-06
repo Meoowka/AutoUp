@@ -47,7 +47,15 @@ namespace AutoUp.MVVM.View
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-
+            var files = DataGridMyApps.SelectedItem as Module;
+            var filesF = files?.Name_File.ToString() + files?.Extension;
+            string path = FilePathLocalFolder + filesF;
+            FileInfo fileInf = new FileInfo(path);
+            if (fileInf.Exists)
+            {
+                fileInf.Delete();  
+            }
+           
         }
 
         private void InstallButton_Click(object sender, RoutedEventArgs e)

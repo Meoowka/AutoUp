@@ -30,16 +30,16 @@ namespace AutoUp
         }
         public bool Authenticate(string login, string password)
         {
-            var connString = "Data Source=meoowka\\sqlexpress;Initial Catalog=DiplomDatabase;Integrated Security=True";
+            var connString = "Data Source=meoowka\\sqlexpress;Initial Catalog=DiplomAutoUp;Integrated Security=True";
             using (var conn = new SqlConnection(connString))
             {
                 conn.Open();
-                string query = "Use DiplomDatabase SELECT * FROM registr where login_user = @Login and password_user = @Password";
+                string query = "SELECT * FROM registr where login_user = @Login and password_user = @Password";
                 var parameters = new DynamicParameters();
                 parameters.Add("Login", login);
                 parameters.Add("Password", password);
 
-                var result = conn.Query<Users>(query, parameters).FirstOrDefault();
+                var result = conn.Query<Users>(query, parameters).First();
 
                 return (result != null) ? true : false;
             }
@@ -50,6 +50,7 @@ namespace AutoUp
             {
                 Hide();
                 MainForms newfrm = new MainForms();
+                
                 newfrm.Show();
             }
             else
