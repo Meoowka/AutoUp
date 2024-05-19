@@ -29,9 +29,9 @@ namespace AutoUp.MVVM.ViewModel
         }
 
 
-        public MainViewModel() {
-
-            AppVm = new AppViewModel();
+        public MainViewModel()
+        {
+            AppVm = new AppViewModel();     
             MyAppVm = new MyAppViewModel();
             IgnorVm = new IgnorViewModel();
             SetVm = new SettingsViewModel();

@@ -1,15 +1,16 @@
 ﻿<UserControl x:Class="AutoUp.MVVM.View.IgnorView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+ xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+ xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:AutoUp.MVVM.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="UserControl_Loaded">
     <Grid>
         <StackPanel>
-            <TextBlock Text="Приложения"
+            <TextBlock Text="Игнорируемые приложения"
                  Foreground="White"
                  FontSize="28"
                  HorizontalAlignment="Left"
@@ -25,15 +26,9 @@
                                      Rect="0,0,800,500"/>
                     </Border.Clip>
 
-                    <DataGrid AutoGenerateColumns="False" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="DataGridMyApps" Style="{DynamicResource DataGridStyle1}">
+                    <DataGrid x:Name="DataGridIgnorApps" AutoGenerateColumns="False" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}"  Style="{DynamicResource DataGridStyle1}">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Header="C" CanUserResize="False" Width="auto" ElementStyle="{StaticResource CheckBoxStyle1}">
-                                <DataGridCheckBoxColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Style="{StaticResource CheckBoxStyle1}"/>
-                                    </DataTemplate>
-                                </DataGridCheckBoxColumn.HeaderTemplate>
-                            </DataGridCheckBoxColumn>
+                           
                             <DataGridTemplateColumn Header="Название приложения" IsReadOnly="True" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -56,7 +51,21 @@
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="Версия" Binding="{Binding Version}" IsReadOnly="True" Width="150"/>
                             <DataGridTextColumn Header="Отложенно" IsReadOnly="True" Width="150"/>
-                           
+                            <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <Button x:Name="AlarmButton" Style="{StaticResource gridEditButton}" >
+                                                <Icon:PackIconMaterial Kind="Alarm"  Style="{StaticResource gridButtonIcon}"/>
+                                            </Button>
+                                            <Button x:Name="TrashCanButton" Margin="0,5,0,0" Style="{StaticResource gridRemoveButton}" >
+                                                <Icon:PackIconMaterial Kind="TrashCan"  Style="{StaticResource gridButtonIcon}"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
                         </DataGrid.Columns>
                     </DataGrid>
                 </Border>

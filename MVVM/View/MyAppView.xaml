@@ -10,7 +10,7 @@
              Loaded="Window_Loaded">
     <Grid>
         <StackPanel>
-            <TextBlock Text="Приложения"
+            <TextBlock Text="Мои приложения"
                     Foreground="White"
                     FontSize="28"
                     HorizontalAlignment="Left"
@@ -28,13 +28,7 @@
 
                     <DataGrid AutoGenerateColumns="False" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="DataGridMyApps" Style="{DynamicResource DataGridStyle1}">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Header="C" CanUserResize="False" Width="auto" ElementStyle="{StaticResource CheckBoxStyle1}">
-                                <DataGridCheckBoxColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Style="{StaticResource CheckBoxStyle1}"/>
-                                    </DataTemplate>
-                                </DataGridCheckBoxColumn.HeaderTemplate>
-                            </DataGridCheckBoxColumn>
+                           
                             <DataGridTemplateColumn Header="Название приложения" IsReadOnly="True" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -52,14 +46,14 @@
                                 </DataGridTextColumn.CellStyle>
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="Версия" Binding="{Binding Version}" IsReadOnly="True" Width="150"/>
-                            <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
+                            <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical">
                                             <Button x:Name="InstallButton" Margin="0,5,0,0" Style="{StaticResource gridRemoveButton}" Click="InstallButton_Click">
                                                 <Icon:PackIconMaterial Kind="ArchiveArrowUp" Style="{StaticResource gridButtonIcon}"/>
                                             </Button>
-                                            <Button x:Name="DeleteButton" Style="{StaticResource gridEditButton}" Click="Delete_Click">
+                                            <Button x:Name="DeleteButton" Style="{StaticResource gridEditButton}" Click="DeleteButton_Click">
                                                 <Icon:PackIconMaterial Kind="TrashCan"  Style="{StaticResource gridButtonIcon}"/>
                                             </Button>
                                         </StackPanel>

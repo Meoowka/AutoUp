@@ -1,62 +1,65 @@
 ﻿using AutoUp.Entities;
 using Dapper;
+
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutoUp
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class LoginForms : Window
+    public partial class LoginForms
     {
         public LoginForms()
         {
             InitializeComponent();
         }
-        public bool Authenticate(string login, string password)
-        {
-            var connString = "Data Source=meoowka\\sqlexpress;Initial Catalog=DiplomAutoUp;Integrated Security=True";
-            using (var conn = new SqlConnection(connString))
-            {
-                conn.Open();
-                string query = "SELECT * FROM registr where login_user = @Login and password_user = @Password";
-                var parameters = new DynamicParameters();
-                parameters.Add("Login", login);
-                parameters.Add("Password", password);
-
-                var result = conn.Query<Users>(query, parameters).First();
-
-                return (result != null) ? true : false;
-            }
-        }
+        
+        public static object id_users { get; set; }
+        
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (Authenticate(txtUser.Text, txtPass.Password.ToString()))
+            String loginUser = txtUser.Text;
+            String passwordUser = txtPass.Password.ToString();
+           
+            DataBase db = new DataBase();
+            DataTable dataTable = new DataTable();
+            db.OpenConnection();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommand command = new SqlCommand("select * from registr where login_user = @uL and password_user = @uP", db.getConnection());
+            command.Parameters.Add("@uL", SqlDbType.VarChar).Value = loginUser;
+            command.Parameters.Add("@uP", SqlDbType.VarChar).Value = passwordUser;
+
+            adapter.SelectCommand = command;
+            adapter.Fill(dataTable);
+            using (SqlDataReader reader = command.ExecuteReader())
             {
+                if (reader.HasRows) // если есть данные
+                {
+                    while (reader.Read()) // построчно считываем данные
+                    {
+                        id_users = reader.GetValue(0);
+                       // MessageBox.Show($"{id_users}");
+                    }
+                }
+            }
+            if (dataTable.Rows.Count > 0)
+            {
+                
                 Hide();
                 MainForms newfrm = new MainForms();
-                
+
                 newfrm.Show();
             }
             else
             {
-                MessageBox.Show("Неверный логин или пароль");
+                MessageBox.Show("Пользователь не найден");
             }
+            db.CloseConnection();
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {

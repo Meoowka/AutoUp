@@ -1,47 +1,42 @@
-﻿using AutoUp.Interfaces;
+﻿using AutoUp.Entities;
+using AutoUp.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using AutoUp.Entities;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Serialization;
 
 namespace AutoUp
 {
-    public class DirectoryModulesProvider : IModulesProvider
+    public class IgnorModule : IModulesProvider
     {
-        public DirectoryModulesProvider(string path)
+        public IgnorModule(string path)
         {
             filePath = path;
         }
 
-        private string filePath ;
-        List<Module> modules = new List<Module>();
+        private string filePath;
+        List<Module> Ignors = new List<Module>();
         public Module[] ListModuleInfo()
         {
-            modules.Clear();
-            if (File.Exists(filePath)) {
+            Ignors.Clear();
+            if (File.Exists(filePath))
+            {
                 var files = readMapFile(filePath);
                 foreach (var item in files)
                 {
-                    modules.Add(item);
+                    Ignors.Add(item);
                 }
             }
 
-            return modules.ToArray();
-          
-          
+            return Ignors.ToArray();
         }
-        public Module GetModule(Guid id)
-        {
-            var modules = ListModuleInfo();
-            return modules?.Where(x => x.Equals(id.ToString())).FirstOrDefault();
-        }
-
         public List<Module> readMapFile(string filePath)
         {
-            List<Module> LocalYml = new();
+            List<Module> LocalIgnor = new();
             using (var reader = new StreamReader(filePath))
             {
 
@@ -52,34 +47,22 @@ namespace AutoUp
                 var p = deserializer.Deserialize<List<Module>>(reader);
                 foreach (var modul in p)
                 {
-                    LocalYml.Add(modul);
+                    LocalIgnor.Add(modul);
                 }
-                return LocalYml;
+                return LocalIgnor;
             }
         }
-
         public void Connect()
         {
             throw new NotImplementedException();
         }
-        public object Download(string f)
+        public object Download(string path)
         {
             throw new NotImplementedException();
-
-
+        }
+        public Module GetModule(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
-        
-
-            
-
-           
-        
-
-
-
-
-
-
-

@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:AutoUp.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800"
-             Loaded="Window_Loaded">
+             Loaded="UserControl_Loaded">
     <Grid>
         <StackPanel>
             <Grid Grid.Row="0" Grid.Column="1">
@@ -102,16 +102,11 @@
                                
                             </ToolTip>
                         </DataGrid.ToolTip>
+                        
                         <DataGrid.Columns>
 
-                            <DataGridCheckBoxColumn Header="C" CanUserResize="False" Width="auto" ElementStyle="{StaticResource CheckBoxStyle1}">
-                                <DataGridCheckBoxColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Style="{StaticResource CheckBoxStyle1}"/>
-                                    </DataTemplate>
-                                </DataGridCheckBoxColumn.HeaderTemplate>
-                            </DataGridCheckBoxColumn>
-                            <DataGridTemplateColumn Header="Название приложения" IsReadOnly="True" Width="*">
+                           
+                            <DataGridTemplateColumn Header="Название приложения" IsReadOnly="True" Width="300">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -128,14 +123,14 @@
                                 </DataGridTextColumn.CellStyle>
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="Версия" Binding="{Binding Version}"  IsReadOnly="True" Width="*" />
-                            <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
+                            <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical">
                                             <Button x:Name="DownloadButton" Style="{StaticResource gridEditButton}" Click="DownloadButton_Click">
                                                 <Icon:PackIconMaterial Kind="Download"  Style="{StaticResource gridButtonIcon}"/>
                                             </Button>
-                                            <Button x:Name="IgnorButton" Margin="0,5,0,0" Style="{StaticResource gridRemoveButton}">
+                                            <Button x:Name="IgnorButton" Margin="0,5,0,0" Style="{StaticResource gridRemoveButton}" Click="IgnorButton_Click">
                                                 <Icon:PackIconMaterial Kind="Alarm" Style="{StaticResource gridButtonIcon}"/>
                                             </Button>
                                         </StackPanel>

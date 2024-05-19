@@ -173,37 +173,101 @@
                                         AlignmentX="Left"/>
                         </TextBox.Background>
                     </TextBox>
-                    <Button x:Name="btnRegistr"                          
+                    <TextBlock Text="Почта"
+                        Foreground="DarkGray"
+                        FontSize="12"
+                        FontWeight="Medium"
+                        FontFamily="Montserrat"                             
+                               />
+                    <TextBox x:Name="txtemail"
+                        FontSize="13"
+                        FontWeight="Medium"
+                        FontFamily="Montserrat"                            
+                        Foreground="White"
+                        CaretBrush="LightGray"
+                        BorderBrush="DarkGray"
+                        BorderThickness="0,0,0,2"
+                        Height="28"
+                        VerticalContentAlignment="Center"
+                        Padding="20,0,0,0">
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Image/key-icon.png"
+                                Stretch="None"
+                                AlignmentX="Left"/>
+                        </TextBox.Background>
+                    </TextBox>
+                    <StackPanel >
+                        <Grid Grid.Row="0" Grid.Column="1" Width="210">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="10"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="btnRegistr"                          
                             BorderThickness="0"
                             Content="Зарегестрировать"
                             Foreground="White"
-                            FontSize="12"
+                            FontSize="10"
                             FontFamily="Montserrat"
                             Cursor="Hand"                           
-                            Margin="0,50,0,0"
-                            Click="btnRegistr_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="#462AD8"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#28AEED"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="150" Height="40"
+                            Margin="5,10,5,10"
+                            Click="btnRegistr_Click" Grid.ColumnSpan="2">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#28AEED"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="90" Height="30"
                                         CornerRadius="20"
                                         Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
+                                            <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button x:Name="btnLast"                          
+                            BorderThickness="0"
+                            Content="Назад"
+                            Foreground="White"
+                            FontSize="10"
+                            FontFamily="Montserrat"
+                            Cursor="Hand" 
+                            Margin="5,10,5,10"
+                            Grid.Column="2"
+                   Click="btnLast_Click" Grid.ColumnSpan="3">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#28AEED"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Width="90" Height="30"
+                                    CornerRadius="20"
+                                    Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </Border>

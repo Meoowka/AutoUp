@@ -1,9 +1,10 @@
 ﻿using AutoUp.Entities;
 using System;
+using System.Data.SqlClient;
 using Dapper;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.SqlClient;
+
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,17 +33,28 @@ namespace AutoUp
         {
             var login = txtUser.Text;
             var pass = txtPass.Text;
+            var email = txtemail.Text;
 
 
             DataBase db = new DataBase();
             SqlDataAdapter adapter = new SqlDataAdapter();
             DataTable dt = new DataTable();
 
-            string query = $"use DiplomAutoUp insert into registr(login_user,password_user) values('{login}','{pass}') ";
+            string query = $"use DiplomAutoUp insert into registr(idUser,login_user,password_user,email_user) values('4','{login}','{pass}','{email}') ";
 
             SqlCommand command = new SqlCommand(query,db.getConnection());
 
             db.OpenConnection();
+            if (checkInput())
+            {
+                MessageBox.Show("Одно или оба поля не заполнены.");
+                return;
+            }
+
+            if (checkUser())
+                return;
+
+
             if (command.ExecuteNonQuery() == 1)
             {
                 MessageBox.Show("Аккаунт создан!");
@@ -54,9 +66,22 @@ namespace AutoUp
             {
                 MessageBox.Show("Аккаунт не создан..");
             }
+
+
             db.CloseConnection();
         }
 
+        private Boolean checkInput()
+        {
+            var login = txtUser.Text;
+            var pass = txtPass.Text;
+
+            if (login == "" || pass == "")
+            {
+                return true;
+            }
+            return false; 
+        }
         private Boolean checkUser()
         {
             var login = txtUser.Text;
@@ -66,8 +91,8 @@ namespace AutoUp
             DataTable dt = new DataTable();
             using (var conn = new SqlConnection(connString))
             {
-                string query = $"use DiplomAutoUp ID_users,Login_user,Pass_user from users" +
-                $" where Login_user = '{login}' and Pass_user = '{pass}'";
+                string query = $"use DiplomAutoUp select IdUser,login_user,password_user from registr" +
+                $" where login_user = '{login}' and password_user = '{pass}'";
 
                 var result = new SqlCommand(query, conn);
                 adapter.SelectCommand = result;
@@ -82,13 +107,14 @@ namespace AutoUp
                 {
                     return false;
                 }
-
-
             }
-
         }
-
-
+        private void btnLast_Click(object sender, RoutedEventArgs e)
+        {
+            LoginForms newfrm = new LoginForms();
+            this.Hide();
+            newfrm.Show();
+        }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -106,5 +132,6 @@ namespace AutoUp
             Application.Current.Shutdown();
         }
 
+      
     }
 }

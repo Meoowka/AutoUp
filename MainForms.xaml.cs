@@ -7,6 +7,7 @@ using System.Windows.Input;
 using AutoUp.MVVM.View;
 using AutoUp.Entities;
 using System.Linq;
+using AutoUp.MVVM.View;
 namespace AutoUp
 {
     /// <summary>
@@ -14,17 +15,19 @@ namespace AutoUp
     /// </summary>
     public partial class MainForms : Window
     {
+    
 
         public MainForms()
         {
-            InitializeComponent();        
+            InitializeComponent();
+           
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-     
+           
         }
-
+     
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
